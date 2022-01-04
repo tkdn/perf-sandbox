@@ -1,0 +1,98 @@
+<ng-container *ngIf="pokemonList$ | async as pokemonList; else loading">
+  <div
+    style="
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      padding: 1rem;
+      grid-gap: 1rem;
+      gap: 1rem;
+      display: grid;
+    "
+  >
+    <ng-container *ngFor="let pokemon of pokemonList.data.pokemons">
+      <div
+        style="
+          --tw-shadow-color: #e5e7eb;
+          --tw-shadow: var(--tw-shadow-colored);
+          box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+            var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+          border-radius: 0.375rem;
+          width: 100%;
+          border: 1px solid #cccccc40;
+        "
+        role="listitem"
+      >
+        <div
+          class="bg-contain bg-no-repeat bg-center w-full rounded-t-md h-40"
+          style="
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            border-top-left-radius: 0.375rem;
+            border-top-right-radius: 0.375rem;
+            width: 100%;
+            height: 10rem;
+          "
+          [attr.style]="'background-image: url(' + pokemon.image + ')'"
+          role="presentation"
+        ></div>
+        <div class="p-4">
+          <p
+            style="
+              font-weight: 600;
+              font-size: 1.25rem;
+              line-height: 1.75rem;
+              text-align: center;
+            "
+          >
+            {{ pokemon.name }}
+          </p>
+          <ul
+            style="
+              --tw-text-opacity: 1;
+              color: rgb(55 65 81 / var(--tw-text-opacity));
+              font-weight: 300;
+              text-align: justify;
+            "
+          >
+            <li *ngFor="let attack of pokemon.attacks.special">
+              {{ attack.name }}
+              <span
+                style="
+                  --tw-text-opacity: 1;
+                  color: rgb(185 28 28 / var(--tw-text-opacity));
+                "
+                >{{ attack.damage }}</span
+              >
+              ({{ attack.type }})
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <div
+    style="
+      --tw-bg-opacity: 1;
+      background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+      height: 20rem;
+    "
+  >
+    <div
+      style="
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        display: flex;
+      "
+    >
+      <img
+        style="width: 4rem; height: 4rem"
+        src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif"
+        alt=""
+      />
+    </div>
+  </div>
+</ng-template>
